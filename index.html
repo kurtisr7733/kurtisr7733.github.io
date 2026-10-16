@@ -52,8 +52,8 @@ nav a.on{color:var(--white);border-bottom-color:var(--steel)}
 .btn.line:hover{background:rgba(255,255,255,.08)}
 .btn.navy{background:var(--navy);border-color:var(--navy);color:var(--white)}
 .btn.navy:hover{background:var(--navy-deep)}
-.frame{max-width:360px;width:100%;justify-self:end;padding:8px;background:var(--white);border:2px solid var(--steel);box-shadow:0 10px 30px rgba(13,27,52,.25)}
-.frame img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:center 30%;display:block}
+.frame{max-width:360px;width:100%;justify-self:end;overflow:hidden;background:var(--white);border:8px solid var(--white);outline:2px solid var(--steel);box-shadow:0 10px 30px rgba(13,27,52,.25)}
+.frame img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;display:block;transform:scale(1.25);transform-origin:50% 62.5%}
 
 /* Highlights strip */
 .strip{background:var(--navy);color:var(--white)}
@@ -172,7 +172,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
     <nav aria-label="Main">
       <a href="#home" data-nav="home">Home</a>
       <a href="#projects" data-nav="projects">Projects</a>
-      <a href="#about" data-nav="about">About</a>
+      <a href="#about" data-nav="about">About</a><a href="Kurtis_Ramsey_Resume_2026_6.pdf" download>Resume</a>
     </nav>
   </div>
 </header>
@@ -359,7 +359,7 @@ const pages = {
         <div class="eyebrow">B.S. Mechanical Engineering · San Diego State University</div>
         <h1>Hardware development, from research to working prototype</h1>
         <p class="lead">I'm Kurtis Ramsey, a hardware development engineer with hands-on experience in advanced materials research, electromechanical systems, and full-lifecycle device design.</p>
-        <div class="ctas"><a class="btn" href="#projects">View my work →</a><a class="btn line" href="#about">About me</a></div>
+        <div class="ctas"><a class="btn" href="#projects">View my work →</a><a class="btn line" href="Kurtis_Ramsey_Resume_2026_6.pdf" download>Download resume ↓</a><a class="btn line" href="#about">About me</a></div>
       </div>
       <div class="frame"><img src="${IMG}kurtis.jpg" alt="Portrait of Kurtis Ramsey"></div>
     </div></section>
@@ -407,7 +407,7 @@ const pages = {
           <div class="row"><span>Email</span><a href="mailto:${ME.email}">${ME.email}</a><button class="copy" data-copy="${ME.email}" type="button">Copy</button></div>
           <div class="row"><span>Phone</span><a href="tel:${ME.phoneHref}">${ME.phone}</a><button class="copy" data-copy="${ME.phone}" type="button">Copy</button></div>
           <div class="row"><span>LinkedIn</span><a href="${ME.linkedin}" target="_blank" rel="noopener">${ME.linkedinShort}</a></div>
-          <div class="row"><span>Location</span><strong>${ME.location}</strong></div>
+          <div class="row"><span>Resume</span><a href="Kurtis_Ramsey_Resume_2026_6.pdf" download>Download PDF ↓</a></div><div class="row"><span>Location</span><strong>${ME.location}</strong></div>
         </div>
       </div>
     </section>`

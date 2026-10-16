@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kurtis Ramsey Portfolio</title>
+<meta name="description" content="Engineering projects by Kurtis William Ramsey, mechanical engineer at San Diego State University.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: navy header, charcoal blueprint hero, white content sheets; hash-routed pages (home, projects, each project, about) */
+:root{
+  --navy:#14284b; --navy-deep:#0d1b34; --navy-soft:#e7ecf4;
+  --charcoal:#2b2f36; --charcoal-2:#3a3f48; --ink:#1f2329; --muted:#5d6470;
+  --white:#ffffff; --paper:#f4f6f9; --line:#dde2ea; --steel:#9fb3d1;
+  --display:"Archivo",system-ui,sans-serif;
+  --body:"Source Sans 3",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--navy)}
+img{max-width:100%;display:block}
+a{color:var(--navy)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+button:focus-visible,a:focus-visible{outline:2px solid var(--steel);outline-offset:3px}
+
+/* Header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--navy);color:var(--white)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;padding-block:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--white);text-decoration:none}
+.mark{width:36px;height:36px;border:2px solid var(--steel);display:grid;place-items:center;font:800 14px var(--display);letter-spacing:.02em}
+.brand b{font:700 18px/1.1 var(--display);letter-spacing:.01em}
+.brand small{display:block;font:500 11px var(--mono);color:var(--steel);letter-spacing:.08em;text-transform:uppercase}
+nav{display:flex;gap:2px;flex-wrap:wrap}
+nav a{color:#cfd9ea;text-decoration:none;font-weight:600;font-size:15px;padding:8px 14px;border-bottom:2px solid transparent}
+nav a:hover{color:var(--white)}
+nav a.on{color:var(--white);border-bottom-color:var(--steel)}
+
+/* Hero */
+.hero{background-color:var(--charcoal);color:var(--white);
+  background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:56px;align-items:center;padding-block:72px}
+.eyebrow{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+.hero h1{font:800 clamp(38px,6vw,64px)/1.02 var(--display);letter-spacing:-.02em;margin:14px 0 18px;text-wrap:balance}
+.hero p.lead{font-size:19px;color:#d6dbe3;max-width:54ch;margin:0 0 30px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 15px var(--body);text-decoration:none;padding:12px 22px;border:2px solid var(--white);background:var(--white);color:var(--navy)}
+.btn:hover{background:var(--navy-soft)}
+.btn.line{background:transparent;color:var(--white)}
+.btn.line:hover{background:rgba(255,255,255,.08)}
+.btn.navy{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.btn.navy:hover{background:var(--navy-deep)}
+.frame{max-width:360px;width:100%;justify-self:end;padding:8px;background:var(--white);border:2px solid var(--steel);box-shadow:0 10px 30px rgba(13,27,52,.25)}
+.frame img{width:100%;height:auto;aspect-ratio:1;object-fit:cover;object-position:center 30%;display:block}
+
+/* Highlights strip */
+.strip{background:var(--navy);color:var(--white)}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-block:28px}
+.strip div{border-left:2px solid var(--steel);padding-left:14px}
+.strip b{display:block;font:800 20px/1.2 var(--display);margin-bottom:4px;text-wrap:balance}
+.strip span{font-size:14px;color:#c4cfe0}
+
+/* Sections */
+.sheet{padding-block:64px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+h2{font:800 clamp(28px,4vw,38px)/1.1 var(--display);letter-spacing:-.01em;margin:6px 0 0;color:var(--charcoal);text-wrap:balance}
+.eyebrow.dark{color:var(--navy)}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.card{background:var(--white);border:1px solid var(--line);display:flex;flex-direction:column;text-decoration:none;color:inherit;min-width:0}
+.card .ph{aspect-ratio:4/3;overflow:hidden;background:var(--charcoal);position:relative}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.card .ph .tag{position:absolute;left:0;bottom:0;background:var(--navy);color:var(--white);font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px}
+.card .bd{padding:20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.meta{font:500 12px var(--mono);color:var(--muted);letter-spacing:.04em}
+.card h3{font:700 21px/1.2 var(--display);margin:0;color:var(--charcoal)}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.more{margin-top:auto;padding-top:10px;font-weight:700;color:var(--navy);font-size:15px}
+.card:hover{border-color:var(--navy)}
+@media (prefers-reduced-motion:no-preference){.card:hover .ph img{transform:scale(1.04)}}
+.placeholder{width:100%;height:100%;display:grid;place-items:center;text-align:center;color:var(--steel);font:500 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:24px 24px}
+.placeholder svg{width:96px;height:96px;margin:0 auto 10px;display:block}
+
+/* Page title band */
+.band{background:var(--charcoal);color:var(--white)}
+.band .wrap{padding-block:52px 44px}
+.band h1{font:800 clamp(32px,5vw,52px)/1.05 var(--display);letter-spacing:-.02em;margin:10px 0 12px;text-wrap:balance}
+.band p{color:#d6dbe3;max-width:62ch;margin:0;font-size:18px}
+.back{display:inline-block;color:var(--steel);text-decoration:none;font:500 13px var(--mono);margin-bottom:18px}
+.back:hover{color:var(--white)}
+
+/* Project detail */
+.detail{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;padding-block:52px}
+.detail h3{font:700 22px var(--display);color:var(--charcoal);margin:32px 0 10px}
+.detail h3:first-child{margin-top:0}
+.detail p{margin:0 0 14px;max-width:68ch}
+.detail ul{margin:0 0 14px;padding-left:20px;max-width:66ch}
+.detail li{margin-bottom:6px}
+aside .box{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--navy);padding:20px;display:grid;gap:14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 90px)}
+aside dt{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+aside dd{margin:2px 0 0;font-weight:600;color:var(--charcoal)}
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:8px 0 18px}
+.nums div{background:var(--white);border:1px solid var(--line);padding:14px}
+.nums b{display:block;font:800 22px/1.1 var(--display);color:var(--navy);font-variant-numeric:tabular-nums}
+.nums span{font-size:13px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:500 12px var(--mono);background:var(--navy-soft);color:var(--navy);padding:4px 9px}
+
+.gallery{padding-bottom:64px}
+.gallery h3{font:700 22px var(--display);color:var(--charcoal);margin:0 0 16px}
+.grid{columns:3 260px;column-gap:16px}
+.grid figure{break-inside:avoid;margin:0 0 16px;background:var(--white);border:1px solid var(--line)}
+.grid button{display:block;width:100%;padding:0;border:0;background:var(--white);cursor:zoom-in}
+.grid img{width:100%;height:auto}
+.grid figcaption{padding:10px 12px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+
+/* About */
+.about{display:grid;grid-template-columns:300px minmax(0,1fr);gap:56px;padding-block:60px}
+.about .frame{justify-self:start;max-width:300px;align-self:start}
+.about h2{margin-bottom:16px}
+.about p{max-width:64ch;margin:0 0 14px}
+.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin:28px 0}
+.cols h4{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin:0 0 10px}
+.cols ul{margin:0;padding-left:18px}
+.contact{background:var(--charcoal);color:var(--white);padding:24px;display:grid;gap:4px;max-width:620px}
+.contact h4{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--steel);margin:0 0 8px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding-block:10px;border-top:1px solid var(--charcoal-2)}
+.row:first-of-type{border-top:0}
+.row span{font:500 12px var(--mono);color:var(--steel);min-width:72px}
+.row a,.row strong{color:var(--white);font-weight:600;overflow-wrap:anywhere;min-width:0;flex:1}
+.copy{font:600 13px var(--body);background:transparent;color:var(--steel);border:1px solid var(--charcoal-2);padding:5px 10px;cursor:pointer}
+.copy:hover{color:var(--white);border-color:var(--steel)}
+
+footer{background:var(--navy-deep);color:#aab8cf;font-size:14px}
+footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* Lightbox */
+.lb{position:fixed;inset:0;z-index:50;background:rgba(13,27,52,.94);display:grid;place-items:center;
+  padding:calc(env(safe-area-inset-top,0px) + 56px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 24px) max(16px,env(safe-area-inset-left,0px))}
+.lb figure{margin:0;max-width:min(1100px,100%);display:grid;gap:10px}
+.lb img{max-height:78vh;width:auto;margin:0 auto;background:var(--white)}
+.lb figcaption{color:#d6dbe3;text-align:center;font-size:15px}
+.lb .x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:max(16px,env(safe-area-inset-right,0px));background:transparent;border:1px solid var(--steel);color:var(--white);font:600 14px var(--body);padding:8px 14px;cursor:pointer}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:48px;gap:40px}
+  .frame{justify-self:start;max-width:300px}
+  .strip .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .detail{grid-template-columns:1fr}
+  aside .box{position:static}
+  .about{grid-template-columns:1fr;gap:36px}
+}
+@media (max-width:600px){
+  .cards,.cols{grid-template-columns:1fr}
+  .nums{grid-template-columns:1fr 1fr}
+  .strip .wrap{grid-template-columns:1fr}
+  nav a{padding:8px 10px}
+}
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="#home"><span class="mark">KR</span><span><b>Kurtis Ramsey</b><small>Mechanical Engineer</small></span></a>
+    <nav aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#projects" data-nav="projects">Projects</a>
+      <a href="#about" data-nav="about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer><div class="wrap"><span>© 2026 Kurtis William Ramsey · San Diego, California</span><span>B.S. Mechanical Engineering · San Diego State University</span></div></footer>
+
+<div class="lb" id="lb" hidden>
+  <button class="x" id="lbx" type="button">Close ✕</button>
+  <figure><img id="lbimg" alt=""><figcaption id="lbcap"></figcaption></figure>
+</div>
+
+<script>
+const IMG = "images/";
+const ME = {
+  name:"Kurtis William Ramsey",
+  email:"kurtisr7733@gmail.com",
+  phone:"(619) 508-5344",
+  phoneHref:"+16195085344",
+  linkedin:"http://www.linkedin.com/in/Kurtis-ramsey-40866b401",
+  linkedinShort:"linkedin.com/in/Kurtis-ramsey-40866b401",
+  location:"San Diego, California"
+};
+
+const PROJECTS = [
+  {
+    id:"selenocycle",
+    title:"SelenoCycle: Lunar Recycling System",
+    short:"NASA LunaRecycle Challenge · Senior design",
+    when:"Aug 2025 – May 2026",
+    where:"NASA LunaRecycle Challenge · SDSU Senior Design",
+    role:"Lead Engineer",
+    cover:"seleno-extruder.jpg",
+    tag:"NASA challenge",
+    summary:"A closed-loop system that turns lunar mission trash, Nomex fabric and multilayer nylon food pouches, into 3D-printable filament. I was a lead engineer and led the melt filtration process.",
+    nums:[["1 of 10","Finalist teams, NASA Milestone Round"],["$50,000","Funding earned"],["45.4%","Nylon reclaimed by my filtration process"]],
+    body:`
+      <h3>The problem</h3>
+      <p>Long lunar missions produce a steady stream of polymer waste, such as Nomex fabric and multilayer nylon food pouches. Today that trash has to be stored or flown back to Earth, which adds launch mass. Our five-engineer team designed a closed-loop, in-situ recycling system that turns it into filament for printing tools and replacement parts.</p>
+      <h3>The system</h3>
+      <p>Shredders break down the Nomex fabric and food pouches. A heated melt filtration stage separates the nylon from the other pouch layers. A single-screw extruder then turns the reclaimed material into filament, and a networked control system runs and monitors the whole process.</p>
+      <h3>What I did</h3>
+      <ul>
+        <li>Developed the melt filtration process, using a band-heated barrel, stainless steel mesh, and compressive loading. Over 17 test iterations it reached 45.4% nylon reclamation.</li>
+        <li>Built a dual-shredder subsystem, a custom grater-style shredder plus a repurposed off-the-shelf shredder, that reduces Nomex fabric to 14 mm × 0.1 mm particles.</li>
+        <li>Designed a single-screw filament extruder with a three-zone heater profile (120 °C / 170 °C / 200 °C) that processes reclaimed material at 500 g per hour.</li>
+        <li>Built a networked control system with a Raspberry Pi, CAN bus, and I²C sensing, plus a remote dashboard and integrated E-stop and interlock safety features.</li>
+        <li>Machined and fabricated hardware using CNC milling, CNC turning, CNC waterjet cutting, MIG welding, and 3D printing.</li>
+        <li>Managed requirements, a 15-item risk register, and an $8K budget, and verified every system requirement by test and demonstration.</li>
+      </ul>
+      <h3>Results</h3>
+      <p>The team was selected as 1 of 10 finalist teams in NASA's LunaRecycle Challenge Milestone Round, earning $50,000 in funding, and was invited to the Prototype Demonstration round. I presented our work in poster sessions at the 2026 SDSU Student Symposium and the 2026 LSIC Spring Meeting.</p>
+      <h3>What I learned</h3>
+      <p>Scope the work breakdown carefully from day one, keep asking for help when something isn't working, and keep conversations professional when opinions clash. Those habits kept the project moving through funding delays and major redesigns.</p>`,
+    facts:[["Role","Lead Engineer"],["Team","5 engineers, sponsored by Dr. Marta Miletic"],["Budget","$8K, with a 15-item risk register"]],
+    tools:["SolidWorks","Raspberry Pi","CAN bus & I²C","HAAS CNC mill & lathe","CNC waterjet","MIG welding","Bambu 3D printers","Requirements verification"],
+    gallery:[
+      ["seleno-filtration.jpg","As-built melt filtration system, the process I developed"],
+      ["seleno-filtration-cad.jpg","CAD model of the melt filtration barrel, mesh, and band heater"],
+      ["seleno-filtration-evolution.jpg","Melt filtration progression from the initial design to the as-built system"],
+      ["seleno-system-cad.jpg","Full system layout: shredding, separation, and extruder modules"],
+      ["seleno-extruder.jpg","As-built single-screw filament extruder"],
+      ["seleno-extruder-cad.jpg","Exploded CAD view of the filament extruder"],
+      ["seleno-shredder.jpg","As-built Nomex shredder"],
+      ["seleno-shredder-2.jpg","Shredder system with its collection tray"],
+      ["seleno-housing-weld.jpg","MIG-welded steel shredder housing"],
+      ["seleno-housing-parts.jpg","Waterjet-cut housing parts during fabrication"],
+      ["seleno-flange.jpg","Machined die-side flange with newly tapped bolt holes"],
+      ["seleno-process.jpg","System process and mass-flow diagram from our NASA proposal"]
+    ]
+  },
+  {
+    id:"metal-foam",
+    title:"Electrically Heated Aluminum Foam",
+    short:"Advanced materials research",
+    when:"Aug 2025 – May 2026",
+    where:"Lab Researcher · SDSU Advanced Materials Processing Lab (AMPL)",
+    role:"Lab Researcher",
+    cover:"foam-heating.jpg",
+    coverPos:"center 55%",
+    tag:"Materials research",
+    summary:"Research into foaming aluminum by passing high current directly through compacted Al–TiH₂ powder, as a faster alternative to furnace-based processing.",
+    nums:[["~994 °C/min","Fastest stable heating rate, at 750 A"],["250–1000 A","Current range tested"],["92–99%","Green compact relative density"]],
+    body:`
+      <h3>Overview</h3>
+      <p>Closed-cell aluminum foams are light, stiff, and absorb a lot of energy, which makes them useful for crash structures and lightweight panels. They're usually made by heating a compacted mix of aluminum powder and a blowing agent in a furnace. In SDSU's Advanced Materials Processing Lab, under Dr. Khaled Morsi, I studied a faster route: electrically driven spark plasma foaming, where high current runs straight through the sample.</p>
+      <h3>What I did</h3>
+      <ul>
+        <li>Reviewed the literature on closed-cell aluminum foams and powder metallurgy to guide the research direction.</li>
+        <li>Ran systematic trials on TiH₂ and Al powder compacts at 250 to 1000 A. 750 A gave the fastest stable heating rate, about 994 °C/min.</li>
+        <li>Designed a Type-C thermocouple measurement setup integrated with Omega DAQ hardware and TracerDAQ software for real-time thermal and electrical data.</li>
+        <li>Characterized how green compact relative density (92–99%) and height-to-width ratio affect heating, and found H/W ratio to be the dominant geometric driver of heating rate.</li>
+        <li>Correlated relative density with the compacts' electrical resistivity, and proposed resistivity as a non-destructive way to screen samples and predict foam quality before processing.</li>
+        <li>Performed Archimedes density analysis and cross-sectional porosity characterization on the foamed samples to find the best processing parameters.</li>
+      </ul>
+      <h3>Findings</h3>
+      <p>Only the 750 and 1000 A settings reliably reached foaming temperature. At 750 A, samples reached the 750–850 °C target range within 90 seconds with a stable plateau, while 1000 A heated so fast it left little margin before overheating. The 750 A samples showed some merged pores, so a shorter dwell time at the temperature plateau is the recommended next step to prevent pore coalescence.</p>`,
+    facts:[["Role","Lab Researcher"],["Advisor","Dr. Khaled Morsi"],["Lab","SDSU Advanced Materials Processing Lab"]],
+    tools:["SHS reactor","Flash sintering furnace","Omega DAQ","TracerDAQ","Type-C thermocouples","MATLAB","Archimedes density","Powder metallurgy"],
+    gallery:[
+      ["foam-heating.jpg","A sample heating inside the reactor during a test"],
+      ["foam-samples.jpg","Best foamed sample from each current setting"],
+      ["foam-reactor.jpg","Modified SHS reactor used for the foaming tests"],
+      ["foam-setup-diagram.jpg","Wiring of the reactor, power supply, thermocouples, and DAQ"],
+      ["foam-power-supply.jpg","TDK-Lambda high-current power supply"],
+      ["foam-daq.jpg","Omega data acquisition unit"],
+      ["foam-press.jpg","Hydraulic press used to compact the powder samples"],
+      ["foam-heating-chart.jpg","Current and heating rate versus sample temperature"]
+    ]
+  },
+  {
+    id:"eagle-scout",
+    title:"Collapsible Ga-Ga Ball Pit & Transport Cart",
+    short:"Eagle Scout project",
+    when:"Sep – Oct 2020",
+    where:"Eagle Scout Project · Torrey Pines Church, San Diego",
+    role:"Project lead",
+    cover:"eagle-finished.jpg",
+    tag:"Design & build",
+    summary:"Designed and led the build of a lighter, collapsible octagonal ball pit and a custom welded transport cart, so two adults can set it up instead of four or more.",
+    nums:[["19","Volunteers led"],["155 hrs","Total project hours"],["2 adults","To set up, down from 4+"]],
+    body:`
+      <h3>The problem</h3>
+      <p>The church youth program's old ga-ga ball pit was heavy, worn out, and took more than four adults to put together. The new one had to fold up small enough for a storage shed and roll across dirt and asphalt.</p>
+      <h3>The build</h3>
+      <ul>
+        <li>Designed eight hinged plywood panels with top and bottom frame pieces, trimmed from 3×8 ft to 3×7 ft sheets to save weight while staying close to standard pit size.</li>
+        <li>Built a steel transport cart with a MIG-welded frame, large wheels, and an extended handle for steering.</li>
+        <li>Replaced removable hinges with a strap around the whole pit after testing showed the hinges were a hassle on uneven ground, and cut carry handles into the panels.</li>
+        <li>Primed and painted every piece so the new pit lasts longer than the unpainted original.</li>
+      </ul>
+      <h3>Leading the team</h3>
+      <p>I planned the project with an experienced engineer as a mentor, managed a $640 budget, ran the safety briefing, and taught volunteers each task step by step. The work was done during COVID-19, so I set up distanced work stations and assigned a safety monitor. I also cleaned out the church storage shed so the pit and cart fit inside.</p>`,
+    facts:[["Role","Planner and project lead"],["Beneficiary","Torrey Pines Church youth program"],["Result","Earned the rank of Eagle Scout"]],
+    tools:["Design & fabrication","Woodworking","MIG welding","Budgeting","Team leadership","Safety planning"],
+    gallery:[
+      ["eagle-finished.jpg","The finished, painted ball pit with the volunteer crew"],
+      ["eagle-transport.jpg","Moving the folded pit on its custom cart"],
+      ["eagle-stored.jpg","Pit and cart stored in the cleaned-out shed"],
+      ["eagle-cart-finished.jpg","The finished transport cart"],
+      ["eagle-first-assembly.jpg","First test assembly of the unpainted pit"],
+      ["eagle-welding-cart.jpg","Welding the cart frame"],
+      ["eagle-grinding-frame.jpg","Grinding and prepping the steel cart frame"],
+      ["eagle-cart-wheels.jpg","Fitting wheels to the cart"],
+      ["eagle-cutting-panels.jpg","Cutting the plywood panels"],
+      ["eagle-entrance-cut.jpg","Cutting the entrance opening into a panel"],
+      ["eagle-drilling.jpg","Drilling the frame pieces together"],
+      ["eagle-corner-pieces.jpg","Angled top and bottom corner pieces"],
+      ["eagle-panels-hinged.jpg","Two panels joined with hinges"],
+      ["eagle-panel-hinges.jpg","Hinged panels folded together"],
+      ["eagle-priming.jpg","Priming the frame pieces"],
+      ["eagle-painting.jpg","Panels laid out for painting"],
+      ["eagle-briefing.jpg","Safety briefing with volunteers"],
+      ["eagle-teaching.jpg","Showing volunteers how to paint the pieces"],
+      ["eagle-shed-before.jpg","Church storage shed before the clean-out"],
+      ["eagle-shed-cleanout.jpg","Clearing out the shed"]
+    ]
+  }
+];
+
+const octagon = `<svg viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="2"><path d="M33 10h30l23 23v30L63 86H33L10 63V33z"/><path d="M38 22h20l16 16v20L58 74H38L22 58V38z" opacity=".5"/><path d="M40 86v-8h16v8"/></svg>`;
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cover = p => p.cover
+  ? `<img src="${IMG}${p.cover}" alt="${esc(p.title)}" loading="lazy" style="object-position:${p.coverPos||"center"}">`
+  : `<div class="placeholder"><div>${octagon}Photos coming soon</div></div>`;
+
+const card = p => `
+  <a class="card" href="#${p.id}">
+    <div class="ph">${cover(p)}<span class="tag">${p.tag}</span></div>
+    <div class="bd">
+      <div class="meta">${p.when} · ${esc(p.short)}</div>
+      <h3>${esc(p.title)}</h3>
+      <p>${esc(p.summary)}</p>
+      <span class="more">View project →</span>
+    </div>
+  </a>`;
+
+const pages = {
+  home: () => `
+    <section class="hero"><div class="wrap">
+      <div>
+        <div class="eyebrow">B.S. Mechanical Engineering · San Diego State University</div>
+        <h1>Hardware development, from research to working prototype</h1>
+        <p class="lead">I'm Kurtis Ramsey, a hardware development engineer with hands-on experience in advanced materials research, electromechanical systems, and full-lifecycle device design.</p>
+        <div class="ctas"><a class="btn" href="#projects">View my work →</a><a class="btn line" href="#about">About me</a></div>
+      </div>
+      <div class="frame"><img src="${IMG}kurtis.jpg" alt="Portrait of Kurtis Ramsey"></div>
+    </div></section>
+    <section class="strip"><div class="wrap">
+      <div><b>Defense &amp; Aerospace</b><span>NASA LunaRecycle Challenge finalist team</span></div>
+      <div><b>Advanced Manufacturing</b><span>CNC milling and turning, waterjet, MIG welding, 3D printing</span></div>
+      <div><b>R&amp;D Hardware Development</b><span>Lunar recycling prototypes and metal foam research</span></div>
+      <div><b>Project Engineering</b><span>Requirements, risk, budgets, and team leadership</span></div>
+    </div></section>
+    <section class="sheet"><div class="wrap">
+      <div class="head"><div><div class="eyebrow dark">Selected work</div><h2>Projects</h2></div><a class="btn navy" href="#projects">All projects</a></div>
+      <div class="cards">${PROJECTS.map(card).join("")}</div>
+    </div></section>`,
+
+  projects: () => `
+    <section class="band"><div class="wrap">
+      <div class="eyebrow">Projects</div>
+      <h1>Engineering work</h1>
+      <p>Design, fabrication, testing, and research. Open a project to see photos, my role, and results.</p>
+    </div></section>
+    <section class="sheet"><div class="wrap"><div class="cards">${PROJECTS.map(card).join("")}</div></div></section>`,
+
+  about: () => `
+    <section class="band"><div class="wrap">
+      <div class="eyebrow">About</div>
+      <h1>Kurtis William Ramsey</h1>
+      <p>Hardware development engineer · San Diego, California</p>
+    </div></section>
+    <section class="wrap about">
+      <div class="frame"><img src="${IMG}kurtis.jpg" alt="Portrait of Kurtis Ramsey"></div>
+      <div style="min-width:0">
+        <div class="eyebrow dark">Bio</div>
+        <h2>Hi, I'm Kurtis.</h2>
+        <p>I'm a hardware development engineer with hands-on experience in advanced materials research, electromechanical systems, and full-lifecycle device design.</p>
+        <p>I earned my B.S. in Mechanical Engineering from San Diego State University in May 2026. While there, I was a lead engineer on a lunar recycling system that made NASA's LunaRecycle Challenge finalists, and a researcher in SDSU's Advanced Materials Processing Lab studying electrically driven aluminum foaming. I like taking a problem from first sketch through fabrication, testing, and redesign.</p>
+        <div class="cols">
+          <div><h4>Education</h4><ul><li>B.S. Mechanical Engineering, San Diego State University, May 2026</li></ul>
+            <h4 style="margin-top:22px">Experience</h4><ul><li>Lead Engineer, NASA LunaRecycle Challenge (Aug 2025 – May 2026)</li><li>Lab Researcher, SDSU Advanced Materials Processing Lab (Aug 2025 – May 2026)</li><li>Server, Piazza 1909 (2021 – present)</li></ul>
+            <h4 style="margin-top:22px">Honors</h4><ul><li>Eagle Scout</li><li>NASA LunaRecycle Challenge Milestone Round finalist</li><li>RCF Certification (CITI Program)</li></ul></div>
+          <div><h4>Software</h4><ul><li>SolidWorks, SolidCAM</li><li>MATLAB, Simulink</li><li>Arduino IDE, Raspberry Pi, Java</li><li>TracerDAQ, Microsoft Office</li></ul>
+            <h4 style="margin-top:22px">Machining & fabrication</h4><ul><li>HAAS CNC mill and CNC lathe</li><li>CNC waterjet cutter, drill press</li><li>MIG welding</li><li>Bambu 3D printers</li><li>Flash sintering furnace, SHS reactor</li></ul></div>
+        </div>
+        <div class="contact">
+          <h4>Contact</h4>
+          <div class="row"><span>Email</span><a href="mailto:${ME.email}">${ME.email}</a><button class="copy" data-copy="${ME.email}" type="button">Copy</button></div>
+          <div class="row"><span>Phone</span><a href="tel:${ME.phoneHref}">${ME.phone}</a><button class="copy" data-copy="${ME.phone}" type="button">Copy</button></div>
+          <div class="row"><span>LinkedIn</span><a href="${ME.linkedin}" target="_blank" rel="noopener">${ME.linkedinShort}</a></div>
+          <div class="row"><span>Location</span><strong>${ME.location}</strong></div>
+        </div>
+      </div>
+    </section>`
+};
+
+function projectPage(p){
+  const idx = PROJECTS.indexOf(p), next = PROJECTS[(idx+1)%PROJECTS.length];
+  const gallery = p.gallery.length
+    ? `<section class="wrap gallery"><h3>Photos</h3><div class="grid">${p.gallery.map(([f,c]) => `
+        <figure><button type="button" data-zoom="${IMG}${f}" data-cap="${esc(c)}"><img src="${IMG}${f}" alt="${esc(c)}" loading="lazy"></button><figcaption>${esc(c)}</figcaption></figure>`).join("")}</div></section>`
+    : `<section class="wrap gallery"><h3>Photos</h3><p style="color:var(--muted)">Photos from the build will be added here.</p></section>`;
+  return `
+    <section class="band"><div class="wrap">
+      <a class="back" href="#projects">← All projects</a>
+      <div class="eyebrow">${esc(p.where)}</div>
+      <h1>${esc(p.title)}</h1>
+      <p>${esc(p.summary)}</p>
+    </div></section>
+    <section class="wrap detail">
+      <div style="min-width:0">
+        <div class="nums">${p.nums.map(([b,s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("")}</div>
+        ${p.body}
+      </div>
+      <aside><div class="box"><dl style="margin:0;display:grid;gap:14px">
+        <div><dt>When</dt><dd>${p.when}</dd></div>
+        ${p.facts.map(([k,v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join("")}
+        <div><dt>Skills & tools</dt><dd><div class="chips" style="margin-top:6px">${p.tools.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div></dd></div>
+      </dl></div></aside>
+    </section>
+    ${gallery}
+    <section class="wrap" style="padding-bottom:64px"><a class="btn navy" href="#${next.id}">Next project: ${esc(next.title)} →</a></section>`;
+}
+
+const app = document.getElementById("app");
+function route(){
+  const id = (location.hash || "#home").slice(1);
+  const p = PROJECTS.find(x => x.id === id);
+  app.innerHTML = p ? projectPage(p) : (pages[id] || pages.home)();
+  const active = p ? "projects" : (pages[id] ? id : "home");
+  document.querySelectorAll("[data-nav]").forEach(a => a.classList.toggle("on", a.dataset.nav === active));
+  document.title = p ? `${p.title} · Kurtis Ramsey` : "Kurtis Ramsey Portfolio";
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", route);
+route();
+
+const lb = document.getElementById("lb");
+document.addEventListener("click", e => {
+  const z = e.target.closest("[data-zoom]");
+  if (z){ document.getElementById("lbimg").src = z.dataset.zoom; document.getElementById("lbimg").alt = z.dataset.cap; document.getElementById("lbcap").textContent = z.dataset.cap; lb.hidden = false; return; }
+  if (e.target === lb || e.target.id === "lbx") lb.hidden = true;
+  const c = e.target.closest("[data-copy]");
+  if (c){
+    const done = () => { c.textContent = "Copied"; setTimeout(() => c.textContent = "Copy", 1500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(c.dataset.copy).then(done).catch(() => {});
+  }
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") lb.hidden = true; });
+</script>
+
+</body>
+</html>
